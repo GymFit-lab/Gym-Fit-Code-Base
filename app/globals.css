@@ -1,0 +1,506 @@
+@import "tailwindcss";
+
+/*
+ * GymFit — "Iron & Pulse" design system
+ * ------------------------------------------------------------------
+ * Theme colours are CSS variables. Dark is the default (`:root` / `.dark`);
+ * `.light` is applied by next-themes. To re-brand, edit the tokens below —
+ * components only reference tokens (bg-bg, text-fg, bg-primary, text-primary-ink…).
+ *
+ * Contrast rules (WCAG AA):
+ *  - `--primary` (lime) is a FILL colour. Never use it for text on light backgrounds.
+ *  - Use `--primary-ink` for lime-coloured TEXT: lime on dark, #4D7A00 on light.
+ *  - Use `--accent-ink` for ember TEXT, `--accent` for fills.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+:root,
+.dark {
+  --bg: #0b0b0d;
+  --surface: #151518;
+  --surface-2: #1d1d22;
+  --fg: #f4f4f1;
+  --muted: #8a8a93;
+  --primary: #c6ff3d;
+  --primary-ink: #c6ff3d;
+  --primary-foreground: #0b0b0d;
+  --accent: #ff5a1f;
+  --accent-ink: #ff6a33;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --ring: #c6ff3d;
+  --grain-opacity: 0.07;
+  --shadow-color: 0 0 0;
+  color-scheme: dark;
+}
+
+.light {
+  --bg: #f6f5f2;
+  --surface: #ffffff;
+  --surface-2: #eeece6;
+  --fg: #111114;
+  --muted: #5c5c66;
+  --primary: #c6ff3d;
+  --primary-ink: #4d7a00;
+  --primary-foreground: #0b0b0d;
+  --accent: #ff5a1f;
+  --accent-ink: #c2410c;
+  --border: rgba(11, 11, 13, 0.1);
+  --border-strong: rgba(11, 11, 13, 0.2);
+  --ring: #4d7a00;
+  --grain-opacity: 0.05;
+  --shadow-color: 40 40 30;
+  color-scheme: light;
+}
+
+@theme {
+  --breakpoint-xs: 22.5rem; /* 360px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+  --breakpoint-xl: 90rem; /* 1440px */
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-ink: var(--primary-ink);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+  /* Fixed, theme-independent ink for text on lime / ember fills. */
+  --color-iron: #0b0b0d;
+  --color-chalk: #f6f5f2;
+
+  --font-display: var(--font-bebas), "Impact", "Arial Narrow", sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                           */
+/* ------------------------------------------------------------------ */
+
+@utility container-x {
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility section-y {
+  padding-block: 5rem;
+  @media (width >= 64rem) {
+    padding-block: 8rem;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary-ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Signature components                                                */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  /* Scroll reveal — content is only hidden once JS has loaded (see RevealObserver),
+     so the page is fully readable without JavaScript. */
+  .reveal-ready [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  .reveal-ready [data-reveal][data-revealed] {
+    transition:
+      opacity 0.6s var(--ease-out-expo),
+      transform 0.6s var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* Chalk grain — SVG fractal noise overlay. */
+  .chalk-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+  .light .chalk-grain {
+    filter: invert(1);
+  }
+
+  /* Heartbeat line */
+  .ecg-mask {
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+  .ecg-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: ecg-draw 2.4s var(--ease-out-expo) 0.3s forwards;
+  }
+  .ecg-travel {
+    stroke-dasharray: 0.05 1.01;
+    stroke-dashoffset: 1.06;
+    opacity: 0;
+    animation: ecg-travel 4s linear 2.6s infinite;
+  }
+
+  /* Weight plates — rotate with page scroll (CSS scroll-driven animation, zero JS). */
+  .plate-spin-slow {
+    animation: plate-spin 60s linear infinite;
+  }
+
+  /* Gym-floor grid + glows */
+  .floor-grid {
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+  }
+  .hero-aura {
+    background:
+      radial-gradient(
+        55% 45% at 78% 40%,
+        color-mix(in oklab, var(--primary) 16%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        40% 35% at 8% 85%,
+        color-mix(in oklab, var(--accent) 14%, transparent),
+        transparent 70%
+      );
+  }
+  .ember-band {
+    background: linear-gradient(115deg, #c6ff3d 0%, #e3ff85 32%, #ffb347 68%, #ff5a1f 100%);
+  }
+
+  /* Power-cut diagonal dividers (gym floor markings) */
+  .power-tape {
+    clip-path: polygon(0 45%, 100% 0, 100% 55%, 0 100%);
+    background: repeating-linear-gradient(-45deg, #c6ff3d 0 16px, #0b0b0d 16px 32px);
+  }
+  .cut-bg {
+    --cut: 2.5rem;
+    clip-path: polygon(0 var(--cut), 100% 0, 100% calc(100% - var(--cut)), 0 100%);
+  }
+  .cut-bg-top {
+    --cut: 2.5rem;
+    clip-path: polygon(0 var(--cut), 100% 0, 100% 100%, 0 100%);
+  }
+  @media (width >= 64rem) {
+    .cut-bg,
+    .cut-bg-top {
+      --cut: 5rem;
+    }
+  }
+
+  /* Magnetic CTA glow */
+  .glow-primary:hover,
+  .glow-primary:focus-visible {
+    box-shadow:
+      0 0 0 4px color-mix(in oklab, var(--primary) 22%, transparent),
+      0 14px 44px -8px color-mix(in oklab, var(--primary) 70%, transparent);
+  }
+  .glow-ink:hover,
+  .glow-ink:focus-visible {
+    box-shadow:
+      0 0 0 4px rgba(11, 11, 13, 0.18),
+      0 14px 44px -10px rgba(11, 11, 13, 0.6);
+  }
+
+  /* Hero entrance — headline only translates (never hidden) to protect LCP. */
+  .hero-rise {
+    animation: hero-rise 0.8s var(--ease-out-expo) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .hero-fade {
+    animation: hero-fade 0.8s var(--ease-out-expo) both;
+    animation-delay: var(--d, 200ms);
+  }
+
+  /* Dashboard mockup */
+  .mockup-tilt {
+    transform: rotateX(4deg) rotateY(-5deg);
+    transform-style: preserve-3d;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+  @media (width >= 64rem) {
+    .mockup-tilt {
+      transform: rotateX(8deg) rotateY(-16deg) rotateZ(1.5deg);
+    }
+    .mockup-tilt:hover {
+      transform: rotateX(4deg) rotateY(-8deg) rotateZ(0.5deg);
+    }
+  }
+  .float-y {
+    animation: float-y 7s ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+  }
+  .bar-grow {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: bar-grow 0.9s var(--ease-out-expo) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  /* Showcase hotspots */
+  .hotspot-pulse {
+    animation: hotspot-pulse 2.2s var(--ease-out-expo) infinite;
+  }
+  .pop-in {
+    animation: pop-in 0.22s var(--ease-out-expo) both;
+  }
+
+  /* FAQ (native <details>) */
+  .faq-content {
+    animation: faq-in 0.35s var(--ease-out-expo);
+  }
+
+  /* Mobile menu (Radix Dialog data-state) */
+  .mobile-menu[data-state="open"] {
+    animation: menu-in 0.5s var(--ease-out-expo);
+  }
+  .mobile-menu[data-state="closed"] {
+    animation: menu-out 0.3s ease-in forwards;
+  }
+  .mobile-menu[data-state="open"] .mobile-menu-item {
+    animation: menu-item-in 0.5s var(--ease-out-expo) both;
+    animation-delay: calc(var(--i, 0) * 60ms + 150ms);
+  }
+
+  .wiggle-on-hover:hover .wiggle-target,
+  .group:hover .wiggle-target {
+    animation: wiggle 0.7s ease-in-out;
+  }
+}
+
+/* Scroll-driven plate rotation — progressive enhancement. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .plate-scroll {
+      animation: plate-spin linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Keyframes                                                           */
+/* ------------------------------------------------------------------ */
+
+@keyframes ecg-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes ecg-travel {
+  0% {
+    stroke-dashoffset: 1.06;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes plate-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hero-rise {
+  from {
+    transform: translate3d(0, 0.35em, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+@keyframes bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes hotspot-pulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes menu-in {
+  from {
+    clip-path: circle(0% at calc(100% - 2.25rem) 2.25rem);
+  }
+  to {
+    clip-path: circle(150% at calc(100% - 2.25rem) 2.25rem);
+  }
+}
+@keyframes menu-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-14deg);
+  }
+  40% {
+    transform: rotate(12deg);
+  }
+  60% {
+    transform: rotate(-8deg);
+  }
+  80% {
+    transform: rotate(4deg);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion — disable non-essential motion everywhere.           */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ecg-travel,
+  .hotspot-pulse {
+    display: none;
+  }
+  .reveal-ready [data-reveal]:not([data-revealed]) {
+    opacity: 1;
+    transform: none;
+  }
+}
