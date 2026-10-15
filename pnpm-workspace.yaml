@@ -2,3 +2,12 @@
   "@tailwindcss/oxide": true
   sharp: true
   unrs-resolver: true
+  prisma: true
+  "@prisma/engines": true
+# pnpm 10 equivalent of allowBuilds (pnpm 12.x is blocked by Device Guard on this machine).
+onlyBuiltDependencies:
+  - "@tailwindcss/oxide"
+  - sharp
+  - unrs-resolver
+  - prisma
+  - "@prisma/engines"

@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, JetBrains_Mono, Manrope } from "next/font/google";
 
-import { Footer } from "@/components/landing/footer";
-import { Navbar } from "@/components/landing/navbar";
 import { RevealObserver } from "@/components/reveal-observer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { commonContent } from "@/content/landing";
@@ -57,9 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             {commonContent.skipLink}
           </a>
-          <Navbar />
-          <main id="main">{children}</main>
-          <Footer />
+          {children}
           <RevealObserver />
         </ThemeProvider>
       </body>

@@ -1,5 +1,5 @@
 /**
- * Copy for placeholder routes (auth modules, legal and company pages).
+ * Copy for placeholder routes (legal and company pages). Auth page copy lives in content/auth.ts.
  * Every page here is a PLACEHOLDER and is excluded from search indexing until
  * `indexable` is set to true and real content replaces the body.
  */
@@ -21,22 +21,6 @@ export const placeholderCommon = {
 const page = (p: PlaceholderPageContent) => p;
 
 export const placeholderPages = {
-  login: page({
-    slug: "login",
-    eyebrow: "Module 2 · Auth",
-    title: "Log in",
-    description: "Log in to your GymFit account.",
-    body: "The GymFit login experience is built as a separate module. This route exists so every link on the landing page works today.",
-    indexable: false,
-  }),
-  signup: page({
-    slug: "signup",
-    eyebrow: "Module 2 · Auth",
-    title: "Start your free trial",
-    description: "Create your GymFit account and start a 14-day free trial.",
-    body: "Sign-up is built as a separate module. Your selected plan (if any) is passed in the URL as ?plan=… for that module to pick up.",
-    indexable: false,
-  }),
   privacy: page({
     slug: "privacy",
     eyebrow: "Legal",
