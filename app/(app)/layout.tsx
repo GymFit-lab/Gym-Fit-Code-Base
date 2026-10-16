@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { AppShell } from "@/components/dashboard/app-shell";
 import { isDemoAuth } from "@/lib/auth-mode";
+import { GymDataProvider } from "@/lib/gym/store";
 import { getCurrentUser } from "@/lib/session";
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <AppShell user={user} demoAuth={isDemoAuth}>
-      {children}
+      <GymDataProvider>{children}</GymDataProvider>
     </AppShell>
   );
 }

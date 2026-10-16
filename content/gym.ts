@@ -1,0 +1,306 @@
+/**
+ * Copy for the gym management pages (Clients, Memberships, Trainers, Attendance, Payments,
+ * Reports). WORDS only — records come from lib/gym/store.tsx.
+ * Templates use `{key}` tokens filled via `fill()` from lib/utils.
+ */
+import type { ClientStatus, Gender, PaymentMethod, PaymentStatus } from "@/lib/gym/types";
+
+export const gymContent = {
+  common: {
+    loading: "Loading…",
+    cancel: "Cancel",
+    save: "Save",
+    search: "Search",
+    all: "All",
+    none: "None",
+    noTrainer: "No trainer",
+    noPlan: "No plan",
+    showMore: "Show more",
+    /** `{count}` = rows still hidden. */
+    showMoreCount: "Show more ({count})",
+    close: "Close",
+    noResults: "Nothing matches your filters.",
+    unassigned: "Unassigned",
+  },
+
+  demo: {
+    title: "Demo data",
+    body: "Everything on this page is sample data stored in your browser. Anything you add stays on this device only, until the backend is connected.",
+    reset: "Reset demo data",
+    resetting: "Resetting…",
+  },
+
+  statusLabels: {
+    active: "Active",
+    due: "Due soon",
+    overdue: "Overdue",
+    expired: "Expired",
+    none: "No plan",
+  } satisfies Record<ClientStatus, string>,
+
+  genders: {
+    male: "Male",
+    female: "Female",
+    other: "Other",
+  } satisfies Record<Gender, string>,
+
+  methods: {
+    cash: "Cash",
+    upi: "UPI",
+    card: "Card",
+    bank: "Bank transfer",
+  } satisfies Record<PaymentMethod, string>,
+
+  paymentStatuses: {
+    paid: "Paid",
+    pending: "Pending",
+  } satisfies Record<PaymentStatus, string>,
+
+  /** Shared validation messages (used by lib/schemas/gym.ts). */
+  errors: {
+    name: "Enter a name (at least 2 characters).",
+    phone: "Enter a 10-digit mobile number.",
+    email: "Enter a valid email address.",
+    required: "Please choose an option.",
+    date: "Choose a date.",
+    amount: "Enter an amount of ₹1 or more.",
+    months: "Enter a duration between 1 and 36 months.",
+    specialty: "Enter a specialty.",
+    note: "Keep the note under 120 characters.",
+    planName: "Enter a plan name.",
+  },
+
+  clients: {
+    metaTitle: "Clients",
+    eyebrow: "Members",
+    title: "Clients",
+    description: "Everyone who trains at your gym, with their current plan and status.",
+    add: "Add client",
+    searchPlaceholder: "Search by name, phone or email",
+    statusFilter: "Status",
+    trainerFilter: "Trainer",
+    stats: {
+      total: "Total clients",
+      active: "Active",
+      due: "Renewals due",
+      expired: "Expired",
+    },
+    columns: {
+      client: "Client",
+      phone: "Phone",
+      plan: "Plan",
+      expires: "Expires",
+      trainer: "Trainer",
+      status: "Status",
+    },
+    empty: "No clients yet. Add your first client to get started.",
+    form: {
+      title: "Add client",
+      description:
+        "Create a client profile. You can assign a membership from the Memberships page.",
+      name: "Full name",
+      phone: "Mobile number",
+      email: "Email (optional)",
+      gender: "Gender",
+      trainer: "Trainer (optional)",
+      submit: "Add client",
+    },
+  },
+
+  memberships: {
+    metaTitle: "Memberships",
+    eyebrow: "Plans",
+    title: "Memberships",
+    description: "Plans you sell and the memberships your clients hold.",
+    assign: "Assign membership",
+    addPlan: "New plan",
+    plansTitle: "Plans",
+    plansDescription: "What members can buy",
+    /** `{count}` = months. */
+    duration: "{count} mo",
+    /** `{count}` = active members on the plan. */
+    members: "{count} active",
+    listTitle: "Memberships",
+    listDescription: "Every membership, newest first",
+    searchPlaceholder: "Search by client name",
+    statusFilter: "Status",
+    planFilter: "Plan",
+    columns: {
+      client: "Client",
+      plan: "Plan",
+      start: "Starts",
+      end: "Ends",
+      amount: "Amount",
+      status: "Status",
+    },
+    empty: "No memberships yet.",
+    assignForm: {
+      title: "Assign membership",
+      description: "Starts a new membership and records the payment.",
+      client: "Client",
+      plan: "Plan",
+      start: "Start date",
+      ends: "Ends on",
+      paymentStatus: "Payment",
+      method: "Payment method",
+      submit: "Assign membership",
+      selectClient: "Select a client",
+      selectPlan: "Select a plan",
+      /** `{plan}` `{price}` */
+      planOption: "{plan} — {price}",
+      noClients: "Add a client first.",
+    },
+    planForm: {
+      title: "New plan",
+      description: "Define a plan members can buy.",
+      name: "Plan name",
+      months: "Duration (months)",
+      price: "Price (₹)",
+      submit: "Create plan",
+    },
+  },
+
+  trainers: {
+    metaTitle: "Trainers",
+    eyebrow: "Team",
+    title: "Trainers",
+    description: "Your coaching team and the clients each one looks after.",
+    add: "Add trainer",
+    searchPlaceholder: "Search by name or specialty",
+    clientsLabel: "Clients",
+    checkInsLabel: "Check-ins, 7 days",
+    /** `{date}` = join date. */
+    joined: "Joined {date}",
+    empty: "No trainers yet. Add your first trainer.",
+    noClients: "No clients assigned yet.",
+    form: {
+      title: "Add trainer",
+      description: "Add a coach to your team.",
+      name: "Full name",
+      specialty: "Specialty",
+      phone: "Mobile number",
+      email: "Email (optional)",
+      submit: "Add trainer",
+    },
+  },
+
+  attendance: {
+    metaTitle: "Attendance",
+    eyebrow: "Front desk",
+    title: "Attendance",
+    description: "Check members in and review who has been training.",
+    checkIn: "Check in",
+    stats: {
+      today: "Today",
+      week: "Last 7 days",
+      average: "Daily average (30 days)",
+      peak: "Busiest hour today",
+    },
+    peakNone: "—",
+    historyTitle: "Check-in log",
+    /** `{date}` = selected day. */
+    historyDescription: "Arrivals on {date}",
+    dateFilter: "Date",
+    searchPlaceholder: "Search by client name",
+    columns: {
+      time: "Time",
+      client: "Client",
+      plan: "Plan",
+      trainer: "Trainer",
+      status: "Membership",
+    },
+    empty: "No check-ins on this day.",
+    chartTitle: "Check-ins, last 14 days",
+    form: {
+      title: "Check in a client",
+      description: "Records an arrival right now.",
+      client: "Client",
+      selectClient: "Select a client",
+      expiredNote: "expired",
+      submit: "Check in",
+      duplicate: "{name} has already checked in today.",
+      success: "{name} checked in.",
+      noClients: "Add a client first.",
+    },
+  },
+
+  payments: {
+    metaTitle: "Payments",
+    eyebrow: "Money",
+    title: "Payments",
+    description: "Track what has been collected and what is still outstanding.",
+    add: "Record payment",
+    stats: {
+      collected: "Collected this month",
+      pending: "Outstanding",
+      pendingCount: "Pending payments",
+      average: "Average payment",
+    },
+    searchPlaceholder: "Search by client or note",
+    statusFilter: "Status",
+    methodFilter: "Method",
+    columns: {
+      date: "Date",
+      client: "Client",
+      method: "Method",
+      note: "Note",
+      amount: "Amount",
+      status: "Status",
+    },
+    markPaid: "Mark paid",
+    /** `{name}` = client name. */
+    markPaidLabel: "Mark payment from {name} as paid",
+    /** `{days}` = days overdue. */
+    overdue: "{days}d overdue",
+    empty: "No payments recorded yet.",
+    form: {
+      title: "Record payment",
+      description: "Log money received, or a payment that is still due.",
+      client: "Client",
+      selectClient: "Select a client",
+      amount: "Amount (₹)",
+      method: "Method",
+      status: "Status",
+      date: "Date",
+      note: "Note (optional)",
+      notePlaceholder: "e.g. Locker fee, personal training",
+      submit: "Save payment",
+      noClients: "Add a client first.",
+    },
+  },
+
+  reports: {
+    metaTitle: "Reports",
+    eyebrow: "Insights",
+    title: "Reports",
+    description: "How your gym is doing — revenue, retention, attendance and team.",
+    export: "Export payments (CSV)",
+    kpis: {
+      revenue: "Revenue this month",
+      newClients: "New clients this month",
+      retention: "Renewal rate",
+      outstanding: "Outstanding",
+    },
+    retentionHint: "Expired memberships that were renewed within 30 days",
+    retentionNone: "—",
+    revenue: { title: "Revenue", description: "Collections per month, last 6 months" },
+    attendance: { title: "Check-ins", description: "Members checked in per day, last 14 days" },
+    methods: {
+      title: "Payment methods",
+      description: "Share of collections, last 12 months",
+      empty: "No payments collected yet.",
+    },
+    plans: { title: "Members by plan", description: "Active memberships per plan" },
+    trainers: { title: "Trainer load", description: "Assigned clients and check-ins today" },
+    renewals: {
+      title: "Renewals to chase",
+      description: "Memberships ending in the next 14 days",
+      empty: "No renewals coming up.",
+      /** `{days}` = days left. */
+      left: "{days}d left",
+      today: "Ends today",
+    },
+    csvHeaders: ["Date", "Client", "Method", "Status", "Amount (INR)", "Note"],
+    csvFile: "gymfit-payments-{date}.csv",
+  },
+};

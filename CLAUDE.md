@@ -46,3 +46,9 @@ Database: `pnpm db:migrate` (prisma migrate dev), `pnpm db:push`, `pnpm db:studi
 ## Conventions
 
 Prettier: double quotes, semicolons, trailing commas, print width 100; Tailwind classes are auto-sorted (also inside `cn()` / `cva()`). Target locale is `en_IN`, default currency INR.
+
+## Gym management pages (dummy data until the API exists)
+
+`/dashboard/clients|memberships|trainers|attendance|payments|reports` are client views in `components/gym/*-view.tsx` (thin server pages in `app/(app)/dashboard/*`). All of them read/write through `useGym()` from `lib/gym/store.tsx` (`GymDataProvider` wraps the `(app)` layout); records are typed in `lib/gym/types.ts` (the API contract), derived values live in `lib/gym/selectors.ts`, copy in `content/gym.ts`, Zod schemas in `lib/schemas/gym.ts`. Users can add clients, trainers, plans, memberships (+ payment), check-ins and payments; added records persist in `localStorage` (key `gymfit:demo-data:v1`), and the demo banner has a reset button.
+
+**Retiring the dummy data:** `lib/gym/data-source.ts` is the only place that knows it's dummy — make `loadGymData` call the API, swap the bodies of the actions in `store.tsx` for API calls, then delete `lib/gym/mock-data.ts`, the localStorage code, `isDemoData` and `components/gym/demo-banner.tsx` (plus its `<DemoBanner />` usages). Pages need no changes.

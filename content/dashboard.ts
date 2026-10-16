@@ -20,12 +20,12 @@ export const dashboardContent = {
   soonBadge: "Soon",
   nav: [
     { label: "Dashboard", href: "/dashboard", icon: "dashboard", soon: false },
-    { label: "Clients", href: "/dashboard/clients", icon: "clients", soon: true },
-    { label: "Memberships", href: "/dashboard/memberships", icon: "memberships", soon: true },
-    { label: "Attendance", href: "/dashboard/attendance", icon: "attendance", soon: true },
-    { label: "Trainers", href: "/dashboard/trainers", icon: "trainers", soon: true },
-    { label: "Payments", href: "/dashboard/payments", icon: "payments", soon: true },
-    { label: "Reports", href: "/dashboard/reports", icon: "reports", soon: true },
+    { label: "Clients", href: "/dashboard/clients", icon: "clients", soon: false },
+    { label: "Memberships", href: "/dashboard/memberships", icon: "memberships", soon: false },
+    { label: "Attendance", href: "/dashboard/attendance", icon: "attendance", soon: false },
+    { label: "Trainers", href: "/dashboard/trainers", icon: "trainers", soon: false },
+    { label: "Payments", href: "/dashboard/payments", icon: "payments", soon: false },
+    { label: "Reports", href: "/dashboard/reports", icon: "reports", soon: false },
   ] satisfies DashboardNavItem[],
 
   /** `{name}` is the user's first name. */
