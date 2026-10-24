@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FitvaApi/FitvaApi.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FitvaApi.Tests/FitvaApi.Tests.csproj" />
+  </Folder>
+</Solution>
