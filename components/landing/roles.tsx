@@ -1,7 +1,9 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { useRef, useState } from "react";
 
+import { ChalkGrain } from "@/components/graphics/chalk-grain";
+import { PlateMark } from "@/components/graphics/plate-mark";
 import { SectionHeading } from "@/components/section-heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { roleMockups, rolesContent as content, type RoleId } from "@/content/landing";
@@ -135,14 +137,36 @@ function RoleMockup({ id }: { id: RoleId }) {
   );
 }
 
+const SWIPE_MIN_PX = 50;
+
 export function Roles() {
+  const [active, setActive] = useState<RoleId>(content.roles[0].id);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  function handleTouchEnd(event: React.TouchEvent) {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+    const dx = event.changedTouches[0].clientX - start.x;
+    const dy = event.changedTouches[0].clientY - start.y;
+    if (Math.abs(dx) < SWIPE_MIN_PX || Math.abs(dx) < Math.abs(dy)) return;
+    const index = content.roles.findIndex((role) => role.id === active);
+    const next = content.roles[index + (dx < 0 ? 1 : -1)];
+    if (next) setActive(next.id);
+  }
+
   return (
-    <section aria-labelledby="roles-title" className="bg-surface section-y">
-      <div className="container-x">
+    <section aria-labelledby="roles-title" className="cut-bg relative bg-surface section-y">
+      <ChalkGrain />
+      <div className="relative container-x">
         <SectionHeading copy={content} id="roles-title" />
 
-        <Tabs defaultValue={content.roles[0].id} className="mt-12 items-center">
-          <TabsList aria-label={content.tabsLabel}>
+        <Tabs
+          value={active}
+          onValueChange={(value) => setActive(value as RoleId)}
+          className="mt-12 items-center"
+        >
+          <TabsList aria-label={content.tabsLabel} className="max-w-full overflow-x-auto">
             {content.roles.map((role) => {
               const Icon = role.icon;
               return (
@@ -153,12 +177,18 @@ export function Roles() {
               );
             })}
           </TabsList>
+          <p className="mt-3 text-xs text-muted md:hidden">{content.swipeHint}</p>
 
           {content.roles.map((role) => (
             <TabsContent
               key={role.id}
               value={role.id}
-              className="mt-10 grid w-full items-center gap-10 border border-border bg-bg p-6 md:p-10 lg:grid-cols-2"
+              onTouchStart={(event) => {
+                const touch = event.touches[0];
+                touchStart.current = { x: touch.clientX, y: touch.clientY };
+              }}
+              onTouchEnd={handleTouchEnd}
+              className="pop-in mt-6 grid w-full touch-pan-y items-center gap-10 border border-border bg-bg p-6 md:mt-10 md:p-10 lg:grid-cols-2"
             >
               <div>
                 <p className="eyebrow">{role.eyebrow}</p>
@@ -169,7 +199,7 @@ export function Roles() {
                 <ul className="mt-6 space-y-3">
                   {role.bullets.map((b) => (
                     <li key={b} className="flex gap-3">
-                      <Check className="mt-0.5 size-5 shrink-0 text-primary-ink" />
+                      <PlateMark className="mt-0.5 size-5 shrink-0" />
                       {b}
                     </li>
                   ))}

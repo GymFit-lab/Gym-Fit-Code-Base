@@ -1,6 +1,11 @@
 import { Search } from "lucide-react";
 
-import { dashboardMockup as m, type ClientStatus, type Tone } from "@/content/landing";
+import {
+  dashboardMockup as m,
+  type ClientStatus,
+  type Hotspot,
+  type Tone,
+} from "@/content/landing";
 import { cn, cssVars, initials } from "@/lib/utils";
 
 const statusStyles: Record<ClientStatus, string> = {
@@ -21,8 +26,17 @@ const toneDot: Record<Tone, string> = {
   muted: "bg-muted",
 };
 
-/** Illustrative dashboard built from sample data. `data-hotspot` marks areas for the product tour. */
-export function DashboardMockup({ className }: { className?: string }) {
+/**
+ * Illustrative dashboard built from sample data. `data-hotspot` marks areas for the product tour;
+ * `markers` renders an overlay (e.g. a numbered hotspot) inside the matching area.
+ */
+export function DashboardMockup({
+  className,
+  markers,
+}: {
+  className?: string;
+  markers?: Partial<Record<Hotspot["id"], React.ReactNode>>;
+}) {
   const maxAttendance = Math.max(...m.attendance.map((d) => d.value));
   const minW = Math.min(...m.progress);
   const maxW = Math.max(...m.progress);
@@ -80,7 +94,8 @@ export function DashboardMockup({ className }: { className?: string }) {
           </div>
 
           {/* KPIs */}
-          <div data-hotspot="kpis" className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+          <div data-hotspot="kpis" className="relative grid grid-cols-2 gap-2 lg:grid-cols-4">
+            {markers?.kpis}
             {m.kpis.map((kpi) => (
               <div key={kpi.label} className="rounded-xl border border-border bg-surface-2 p-3">
                 <p className="text-[0.7rem] text-muted">{kpi.label}</p>
@@ -94,8 +109,9 @@ export function DashboardMockup({ className }: { className?: string }) {
             {/* Clients */}
             <div
               data-hotspot="clients"
-              className="rounded-xl border border-border bg-surface-2 p-3 lg:col-span-3"
+              className="relative rounded-xl border border-border bg-surface-2 p-3 lg:col-span-3"
             >
+              {markers?.clients}
               <div className="mb-2 flex items-center justify-between text-xs">
                 <span className="font-semibold">{m.clientsTitle}</span>
                 <span className="text-primary-ink">{m.clientsAction}</span>
@@ -124,8 +140,9 @@ export function DashboardMockup({ className }: { className?: string }) {
             {/* Attendance */}
             <div
               data-hotspot="attendance"
-              className="rounded-xl border border-border bg-surface-2 p-3 lg:col-span-2"
+              className="relative rounded-xl border border-border bg-surface-2 p-3 lg:col-span-2"
             >
+              {markers?.attendance}
               <p className="mb-2 text-xs font-semibold">{m.attendanceTitle}</p>
               <div className="flex h-28 items-end gap-1.5">
                 {m.attendance.map((d, i) => (
@@ -148,8 +165,9 @@ export function DashboardMockup({ className }: { className?: string }) {
             {/* Renewals */}
             <div
               data-hotspot="renewals"
-              className="rounded-xl border border-border bg-surface-2 p-3"
+              className="relative rounded-xl border border-border bg-surface-2 p-3"
             >
+              {markers?.renewals}
               <p className="mb-2 text-xs font-semibold">{m.renewalsTitle}</p>
               <ul className="space-y-1.5">
                 {m.renewals.map((r) => (
@@ -169,8 +187,9 @@ export function DashboardMockup({ className }: { className?: string }) {
             {/* Progress */}
             <div
               data-hotspot="progress"
-              className="rounded-xl border border-border bg-surface-2 p-3"
+              className="relative rounded-xl border border-border bg-surface-2 p-3"
             >
+              {markers?.progress}
               <div className="mb-1 flex items-center justify-between text-xs">
                 <span className="font-semibold">{m.progressTitle}</span>
                 <span className="text-primary-ink">

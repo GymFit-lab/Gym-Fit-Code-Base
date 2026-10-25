@@ -76,8 +76,11 @@ export function ProblemSolution() {
                     {after ? content.fixLabel : content.painLabel}
                   </span>
                 </div>
-                <h3 className="mt-5 text-xl font-bold">{copy.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{copy.text}</p>
+                {/* Re-keyed on toggle so the swap animates in. */}
+                <div key={String(after)} className="pop-in">
+                  <h3 className="mt-5 text-xl font-bold">{copy.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{copy.text}</p>
+                </div>
               </li>
             );
           })}

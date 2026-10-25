@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
@@ -8,11 +9,25 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/wordmark";
 import { navContent as nav } from "@/content/landing";
-import { cssVars } from "@/lib/utils";
+import { cn, cssVars } from "@/lib/utils";
 
 export function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-lg">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+        scrolled ? "border-border bg-bg/80 backdrop-blur-lg" : "border-transparent bg-transparent",
+      )}
+    >
       <div className="container-x flex h-18 items-center gap-6">
         <Wordmark />
 

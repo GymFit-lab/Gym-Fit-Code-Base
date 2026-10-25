@@ -1,3 +1,5 @@
+import { ChalkGrain } from "@/components/graphics/chalk-grain";
+import { FeatureVisual } from "@/components/landing/feature-visual";
 import { SectionHeading } from "@/components/section-heading";
 import { featuresContent as content, type FeatureSize } from "@/content/landing";
 import { cn, revealDelay } from "@/lib/utils";
@@ -11,8 +13,13 @@ const sizeClasses: Record<FeatureSize, string> = {
 
 export function Features() {
   return (
-    <section id="features" aria-labelledby="features-title" className="bg-surface section-y">
-      <div className="container-x">
+    <section
+      id="features"
+      aria-labelledby="features-title"
+      className="cut-bg relative bg-surface section-y"
+    >
+      <ChalkGrain />
+      <div className="relative container-x">
         <SectionHeading copy={content} id="features-title" />
 
         <ul className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -40,18 +47,9 @@ export function Features() {
                   {feature.title}
                 </h3>
                 <p className="mt-2 leading-relaxed text-muted">{feature.benefit}</p>
-                {feature.size === "lg" && (
-                  <div aria-hidden="true" className="mt-auto pt-8">
-                    <div className="grid grid-cols-3 gap-2">
-                      {Array.from({ length: 6 }, (_, n) => (
-                        <div
-                          key={n}
-                          className="h-12 rounded-xl border border-border bg-surface-2"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <div aria-hidden="true" className="mt-auto pt-6">
+                  <FeatureVisual kind={feature.visual} />
+                </div>
               </li>
             );
           })}

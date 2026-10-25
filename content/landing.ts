@@ -386,6 +386,18 @@ export const featuresContent: SectionCopy & { items: Feature[] } = {
   ],
 };
 
+/** Sample data for the decorative micro-visuals inside the bento tiles (fictional). */
+export const featureVisuals = {
+  renewals: { label: "Quarterly · renews in 3 days", action: "Remind" },
+  plans: ["Push · Pull · Legs", "High-protein · 2,200 kcal", "Mobility · 20 min"],
+  trainers: ["Neha", "Vikram", "Arjun", "Isha"],
+  payments: { amount: "₹1,499 due", status: "Reminder sent" },
+  reports: {
+    label: "Revenue · last 12 months",
+    values: [42, 48, 45, 53, 58, 55, 62, 66, 64, 71, 77, 84],
+  },
+};
+
 /* -------------------------------------------------------------------------- */
 /*                                How it works                                */
 /* -------------------------------------------------------------------------- */

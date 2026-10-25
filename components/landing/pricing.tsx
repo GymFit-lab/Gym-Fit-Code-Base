@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Check } from "lucide-react";
 
+import { ChalkGrain } from "@/components/graphics/chalk-grain";
+import { PlateRings } from "@/components/graphics/plate-rings";
 import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
 import { pricingContent as content, type Billing, type PlanLimits } from "@/content/landing";
@@ -16,8 +18,15 @@ export function Pricing() {
   const maxSaving = Math.max(...content.plans.map((p) => yearlySavingPercent(p.prices[currency])));
 
   return (
-    <section id="pricing" aria-labelledby="pricing-title" className="bg-surface section-y">
-      <div className="container-x">
+    <section
+      id="pricing"
+      aria-labelledby="pricing-title"
+      className="cut-bg relative overflow-hidden bg-surface section-y"
+    >
+      <ChalkGrain />
+      <PlateRings className="absolute -top-40 -left-48 size-[36rem] text-fg/5" />
+      <PlateRings className="absolute -right-32 -bottom-40 size-[28rem] text-fg/5" />
+      <div className="relative container-x">
         <SectionHeading copy={content} id="pricing-title" />
 
         <div className="mt-10 flex flex-col items-center gap-3">
