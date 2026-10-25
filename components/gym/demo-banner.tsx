@@ -5,17 +5,16 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { gymContent } from "@/content/gym";
-import { isDemoData } from "@/lib/gym/data-source";
 import { useGym } from "@/lib/gym/store";
 
 const { demo } = gymContent;
 
 /** Notice + reset while the gym pages run on dummy data. Remove with lib/gym/mock-data.ts. */
 export function DemoBanner() {
-  const { resetDemo } = useGym();
+  const { resetDemo, isDemo } = useGym();
   const [busy, setBusy] = useState(false);
 
-  if (!isDemoData) return null;
+  if (!isDemo) return null;
 
   return (
     <div

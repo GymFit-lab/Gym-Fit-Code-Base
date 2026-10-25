@@ -118,6 +118,19 @@ export const authContent = {
     },
   },
 
+  /** Staff login against the FITVA database (AUTH_MODE=fitva). */
+  fitva: {
+    notice: "Log in with your gym staff account.",
+    fields: {
+      email: { label: "Email", placeholder: "you@yourgym.in" },
+      password: { label: "Password", placeholder: "Your password" },
+    },
+    errors: {
+      invalid: "Incorrect email or password.",
+      unavailable: "Can't reach the gym database right now. Please try again.",
+    },
+  },
+
   /** Log-out button (dashboard). */
   dashboard: {
     signOut: "Log out",

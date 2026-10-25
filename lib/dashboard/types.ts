@@ -65,5 +65,8 @@ export type DashboardData = {
   pendingPayments: { total: number; items: PendingPayment[] };
 };
 
-/** Where dashboard data comes from. "mock" = local dummy data (lib/dashboard/mock-data.ts). */
-export type DashboardDataSource = "mock" | "api";
+/**
+ * Where dashboard data comes from. "mock" = local dummy data (lib/dashboard/mock-data.ts),
+ * "api" = GET {API_BASE_URL}/dashboard, "db" = fitva_db stored functions (AUTH_MODE=fitva).
+ */
+export type DashboardDataSource = "mock" | "api" | "db";

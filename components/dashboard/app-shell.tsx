@@ -14,6 +14,7 @@ import { DashboardNavLink } from "@/components/dashboard/nav-link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Wordmark } from "@/components/wordmark";
 import { dashboardContent, type DashboardNavItem } from "@/content/dashboard";
+import type { AuthMode } from "@/lib/auth-mode";
 import { cn, initials } from "@/lib/utils";
 
 const icons: Record<DashboardNavItem["icon"], LucideIcon> = {
@@ -61,11 +62,11 @@ function NavItem({ item, compact }: { item: DashboardNavItem; compact?: boolean 
 /** Signed-in app chrome: sidebar on desktop, scrollable tab row on mobile, top bar with user. */
 export function AppShell({
   user,
-  demoAuth,
+  authMode,
   children,
 }: {
   user: { name: string; email: string };
-  demoAuth: boolean;
+  authMode: AuthMode;
   children: React.ReactNode;
 }) {
   const { nav, navLabel } = dashboardContent;
@@ -93,7 +94,7 @@ export function AppShell({
               <p className="truncate text-xs text-muted">{user.email}</p>
             </div>
           </div>
-          <SignOutButton demo={demoAuth} variant="ghost" size="sm" className="mt-3 w-full" />
+          <SignOutButton authMode={authMode} variant="ghost" size="sm" className="mt-3 w-full" />
         </div>
       </aside>
 
@@ -103,7 +104,7 @@ export function AppShell({
             <Wordmark className="text-2xl lg:hidden" />
             <div className="ml-auto flex items-center gap-1">
               <ThemeToggle />
-              <SignOutButton demo={demoAuth} variant="ghost" size="sm" className="lg:hidden" />
+              <SignOutButton authMode={authMode} variant="ghost" size="sm" className="lg:hidden" />
             </div>
           </div>
           <nav aria-label={navLabel} className="border-t border-border lg:hidden">

@@ -5,18 +5,20 @@ import { useRouter } from "next/navigation";
 import { Loader2, LogOut } from "lucide-react";
 
 import { demoSignOut } from "@/app/actions/demo-auth";
+import { staffSignOut } from "@/app/actions/fitva-auth";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { authContent } from "@/content/auth";
 import { authClient } from "@/lib/auth-client";
+import type { AuthMode } from "@/lib/auth-mode";
 
 export function SignOutButton({
-  demo,
+  authMode,
   variant = "outline",
   size = "md",
   className,
 }: {
-  /** true while AUTH_MODE is "demo" (pass `isDemoAuth` from lib/auth-mode). */
-  demo: boolean;
+  /** The active login system (pass `AUTH_MODE` from lib/auth-mode). */
+  authMode: AuthMode;
 } & Pick<ButtonProps, "variant" | "size" | "className">) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
@@ -24,8 +26,12 @@ export function SignOutButton({
 
   async function handleClick() {
     setPending(true);
-    if (demo) {
+    if (authMode === "demo") {
       await demoSignOut(); // redirects to /login
+      return;
+    }
+    if (authMode === "fitva") {
+      await staffSignOut(); // redirects to /login
       return;
     }
     await authClient.signOut();

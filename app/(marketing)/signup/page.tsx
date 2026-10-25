@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { authContent } from "@/content/auth";
 import { pricingContent } from "@/content/landing";
 import { isGoogleAuthEnabled } from "@/lib/auth";
-import { isDemoAuth } from "@/lib/auth-mode";
+import { AUTH_MODE } from "@/lib/auth-mode";
 import { getCurrentUser } from "@/lib/session";
 import { fill } from "@/lib/utils";
 
@@ -28,8 +28,8 @@ export default async function SignupPage({
 }) {
   if (await getCurrentUser()) redirect(authContent.afterAuthPath);
 
-  // Demo mode has no database, so new accounts can't be created yet.
-  if (isDemoAuth) {
+  // Demo and staff (fitva) modes have no self sign-up, so new accounts can't be created here yet.
+  if (AUTH_MODE !== "better-auth") {
     const { signupDisabled } = authContent.demo;
     return (
       <AuthShell copy={copy} notice={<AuthNotice>{signupDisabled.title}</AuthNotice>}>

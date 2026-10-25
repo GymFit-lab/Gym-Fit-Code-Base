@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { AppShell } from "@/components/dashboard/app-shell";
-import { isDemoAuth } from "@/lib/auth-mode";
+import { AUTH_MODE, isFitvaAuth } from "@/lib/auth-mode";
 import { GymDataProvider } from "@/lib/gym/store";
 import { getCurrentUser } from "@/lib/session";
 
@@ -16,8 +16,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   if (!user) redirect("/login");
 
   return (
-    <AppShell user={user} demoAuth={isDemoAuth}>
-      <GymDataProvider>{children}</GymDataProvider>
+    <AppShell user={user} authMode={AUTH_MODE}>
+      <GymDataProvider remote={isFitvaAuth}>{children}</GymDataProvider>
     </AppShell>
   );
 }

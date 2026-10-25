@@ -31,6 +31,13 @@ export const demoLoginSchema = z.object({
   password: z.string().min(1, errors.passwordRequired).max(PASSWORD_MAX),
 });
 
+/** Staff login against fitva_db (AUTH_MODE=fitva). */
+export const staffLoginSchema = z.object({
+  email,
+  password: z.string().min(1, errors.passwordRequired).max(PASSWORD_MAX),
+});
+
 export type LoginValues = z.infer<typeof loginSchema>;
+export type StaffLoginValues = z.infer<typeof staffLoginSchema>;
 export type DemoLoginValues = z.infer<typeof demoLoginSchema>;
 export type SignupValues = z.infer<typeof signupSchema>;

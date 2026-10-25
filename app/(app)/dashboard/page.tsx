@@ -56,6 +56,7 @@ export default async function DashboardPage() {
           description={copy.revenue.description}
           className="xl:col-span-2"
         >
+        
           <LineChart
             title={copy.revenue.description}
             format="currency"
