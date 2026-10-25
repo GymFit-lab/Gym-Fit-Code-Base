@@ -1,12 +1,16 @@
-import { isFitvaAuth } from "@/lib/auth-mode";
+import { redirect } from "next/navigation";
+
+import { isFitvaApi, isFitvaAuth } from "@/lib/auth-mode";
 import type { DashboardData, DashboardDataSource } from "@/lib/dashboard/types";
+import { apiFetch, FitvaApiError } from "@/lib/fitva/api";
 import { loadDashboardFromDb } from "@/lib/fitva/dashboard";
 import { requireGymId } from "@/lib/session";
 
 /**
  * The ONLY function the dashboard UI uses to get its data.
  *
- * - "db": AUTH_MODE=fitva always reads the signed-in gym from fitva_db (lib/fitva/dashboard.ts).
+ * - "db": AUTH_MODE=fitva always reads the signed-in gym from fitva_db (lib/fitva/dashboard.ts),
+ *   or from the .NET API's GET /dashboard with the user's token when FITVA_API_URL is set.
  * - "api": DASHBOARD_DATA_SOURCE=api → GET {API_BASE_URL}/dashboard returning `DashboardData`.
  * - "mock" (default): dummy data. To retire it, delete lib/dashboard/mock-data.ts and the
  *   `if (dashboardDataSource === "mock")` block.
@@ -20,6 +24,14 @@ export const dashboardDataSource: DashboardDataSource = isFitvaAuth
 
 export async function getDashboardData(): Promise<DashboardData> {
   if (dashboardDataSource === "db") {
+    if (isFitvaApi) {
+      // The page renders alongside the layout's session check, so a signed-out visitor can
+      // reach this too: send them to the login page instead of throwing.
+      return apiFetch<DashboardData>("/dashboard").catch((error: unknown) => {
+        if (error instanceof FitvaApiError && error.status === 401) redirect("/login");
+        throw error;
+      });
+    }
     return loadDashboardFromDb(await requireGymId());
   }
 

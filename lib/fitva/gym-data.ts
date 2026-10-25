@@ -1,7 +1,9 @@
 /**
- * Builds `GymData` (lib/gym/types.ts, the store's bootstrap) from fitva_db for one gym.
+ * Builds `GymData` (lib/gym/types.ts, the store's bootstrap) from fitva_db for one gym, or from
+ * the .NET API for the signed-in user (loadGymDataFromApi).
  * List functions are paged; this walks every page so the client-side selectors see everything.
  */
+import { apiFetch, FitvaApiError } from "@/lib/fitva/api";
 import { callFn } from "@/lib/fitva/db";
 import type {
   AttendanceRecord,
@@ -127,5 +129,87 @@ export async function loadGymDataFromDb(gymId: string): Promise<GymData> {
       date: p.payment_date,
       note: p.note,
     })),
+  };
+}
+
+// ---- Through the .NET API (FITVA_API_URL). The API already returns camelCase JSON. ----
+
+/** The API's largest page size. */
+const API_PAGE_SIZE = 200;
+
+type ApiPage<Item> = { items: Item[]; meta: { total: number } };
+
+async function allApiPages<Item>(path: string): Promise<Item[]> {
+  const items: Item[] = [];
+  for (let page = 1; ; page++) {
+    const batch = await apiFetch<ApiPage<Item>>(`${path}?page=${page}&pageSize=${API_PAGE_SIZE}`);
+    items.push(...batch.items);
+    if (batch.items.length < API_PAGE_SIZE || items.length >= batch.meta.total) return items;
+  }
+}
+
+type ApiTrainer = Omit<Trainer, "email"> & { email: string | null };
+type ApiClient = Omit<Client, "email"> & { email: string | null };
+
+export async function loadGymDataFromApi(): Promise<GymData> {
+  const [plans, trainers, clients, memberships, attendance, payments] = await Promise.all([
+    apiFetch<Plan[]>("/plans"),
+    allApiPages<ApiTrainer>("/trainers"),
+    allApiPages<ApiClient>("/clients"),
+    allApiPages<Membership>("/memberships"),
+    apiFetch<AttendanceRecord[]>(`/attendance/recent?days=${ATTENDANCE_DAYS}`),
+    // Trainers may not see payments (403): their pages simply show none.
+    allApiPages<Payment>("/payments").catch((error: unknown) => {
+      if (error instanceof FitvaApiError && error.status === 403) return [];
+      throw error;
+    }),
+  ]);
+
+  // Pick the GymData fields only; the API rows carry extras (counts, names, status).
+  return {
+    plans: plans.map(({ id, name, durationMonths, price }) => ({
+      id,
+      name,
+      durationMonths,
+      price,
+    })),
+    trainers: trainers.map(({ id, name, specialty, phone, email, joinedOn }) => ({
+      id,
+      name,
+      specialty,
+      phone,
+      email: email ?? "",
+      joinedOn,
+    })),
+    clients: clients.map(({ id, name, phone, email, gender, joinedOn, trainerId }) => ({
+      id,
+      name,
+      phone,
+      email: email ?? "",
+      gender,
+      joinedOn,
+      trainerId,
+    })),
+    memberships: memberships.map(({ id, clientId, planId, startDate, endDate, amount }) => ({
+      id,
+      clientId,
+      planId,
+      startDate,
+      endDate,
+      amount,
+    })),
+    attendance: attendance.map(({ id, clientId, checkedInAt }) => ({ id, clientId, checkedInAt })),
+    payments: payments.map(
+      ({ id, clientId, membershipId, amount, method, status, date, note }) => ({
+        id,
+        clientId,
+        membershipId,
+        amount,
+        method,
+        status,
+        date,
+        note,
+      }),
+    ),
   };
 }

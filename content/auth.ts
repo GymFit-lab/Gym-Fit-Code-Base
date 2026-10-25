@@ -128,6 +128,7 @@ export const authContent = {
     errors: {
       invalid: "Incorrect email or password.",
       unavailable: "Can't reach the gym database right now. Please try again.",
+      tooManyAttempts: "Too many login attempts. Please wait a minute and try again.",
     },
   },
 

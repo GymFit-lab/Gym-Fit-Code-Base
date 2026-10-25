@@ -24,3 +24,13 @@ export const isDemoAuth = AUTH_MODE === "demo";
 
 /** Staff login + live gym data from fitva_db. */
 export const isFitvaAuth = AUTH_MODE === "fitva";
+
+/**
+ * Base URL of the FITVA .NET API (backend/, e.g. "http://localhost:5076"). When set, AUTH_MODE=fitva
+ * goes through the API (login, dashboard, gym pages) instead of calling fitva_db directly — the same
+ * backend the Android app uses. Unset = direct database access (lib/fitva/db.ts).
+ */
+export const fitvaApiUrl = process.env.FITVA_API_URL?.trim().replace(/\/+$/, "") || null;
+
+/** AUTH_MODE=fitva through the .NET API. */
+export const isFitvaApi = isFitvaAuth && fitvaApiUrl !== null;

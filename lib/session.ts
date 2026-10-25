@@ -1,8 +1,9 @@
 import { headers } from "next/headers";
 
 import { auth } from "@/lib/auth";
-import { isDemoAuth, isFitvaAuth } from "@/lib/auth-mode";
+import { isDemoAuth, isFitvaApi, isFitvaAuth } from "@/lib/auth-mode";
 import { getDemoSession } from "@/lib/demo-auth";
+import { getApiUser } from "@/lib/fitva/api";
 import { getStaffSession } from "@/lib/fitva/session";
 
 export type CurrentUser = {
@@ -26,7 +27,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
   }
 
   if (isFitvaAuth) {
-    const user = await getStaffSession();
+    const user = isFitvaApi ? await getApiUser() : await getStaffSession();
     return user ? { id: user.id, name: user.name, email: user.email, gymId: user.gymId } : null;
   }
 
