@@ -1,4 +1,4 @@
-// GymFit database schema.
+// FITVA database schema.
 // The User / Session / Account / Verification models are the tables Better Auth expects
 // (see https://www.better-auth.com/docs/concepts/database). Add gym, membership, etc.
 // models below them as the product modules are built.

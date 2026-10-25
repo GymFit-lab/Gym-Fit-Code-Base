@@ -1,6 +1,6 @@
 # Credits & licenses
 
-GymFit's visuals are original: every illustration, the weight-plate graphic, the heartbeat line,
+FITVA's visuals are original: every illustration, the weight-plate graphic, the heartbeat line,
 the chalk-grain texture, the dashboard mockups, the logo and the OG image are hand-built in
 SVG/CSS/code in this repository. There are no stock photos, third-party logos or images of real
 people.

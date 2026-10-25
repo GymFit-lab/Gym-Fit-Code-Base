@@ -1,5 +1,5 @@
 /**
- * GymFit landing page content — the single source of truth for the marketing page.
+ * FITVA landing page content — the single source of truth for the marketing page.
  *
  * Every user-facing string, list, price, plan limit, FAQ and testimonial lives here.
  * Components only render what this file provides.
@@ -50,7 +50,7 @@ export type SectionCopy = {
 /* -------------------------------------------------------------------------- */
 
 export const commonContent = {
-  homeLabel: "GymFit — home",
+  homeLabel: "FITVA — home",
   themeToggleLabel: "Toggle light and dark theme",
   skipLink: "Skip to content",
   loadingLabel: "Loading",
@@ -106,7 +106,7 @@ export const heroContent: {
   },
   headline: { lead: "Run your gym.", punch: "Not spreadsheets." },
   subtext:
-    "GymFit puts clients, memberships, attendance and progress in one place — so you spend less time chasing renewals and more time coaching.",
+    "FITVA puts clients, memberships, attendance and progress in one place — so you spend less time chasing renewals and more time coaching.",
   primaryCta: { label: "Start 14-Day Free Trial", href: "/signup" },
   secondaryCta: { label: "Book a Demo", href: "/#demo" },
   trust: ["No credit card required", "Setup in 5 minutes"],
@@ -145,8 +145,8 @@ export type DashboardMockupContent = {
 
 export const dashboardMockup: DashboardMockupContent = {
   ariaLabel:
-    "Illustration of the GymFit dashboard: member counts, renewal alerts, a client list and a weekly attendance chart, using sample data.",
-  windowTitle: "gymfit / dashboard",
+    "Illustration of the FITVA dashboard: member counts, renewal alerts, a client list and a weekly attendance chart, using sample data.",
+  windowTitle: "fitva / dashboard",
   sampleBadge: "Sample data",
   gymName: "Demo Gym · Main",
   searchPlaceholder: "Search clients…",
@@ -206,7 +206,7 @@ export type Stat = {
 };
 
 export const statsContent: { srTitle: string; placeholderNote: string; items: Stat[] } = {
-  srTitle: "GymFit at a glance",
+  srTitle: "FITVA at a glance",
   placeholderNote: "Target figure — replace with measured data before launch.",
   items: [
     { value: 8, pad: 2, label: "Core modules in one app", placeholder: false },
@@ -239,12 +239,12 @@ export const problemSolutionContent: SectionCopy & {
   title: "From gym-floor chaos to total control",
   highlight: "total control",
   description:
-    "Most gyms still run on registers, spreadsheets and group chats. Here is what that costs you — and how GymFit fixes it.",
-  toggleLabel: "Compare your gym before and after GymFit",
-  toggle: { before: "Before GymFit", after: "With GymFit" },
+    "Most gyms still run on registers, spreadsheets and group chats. Here is what that costs you — and how FITVA fixes it.",
+  toggleLabel: "Compare your gym before and after FITVA",
+  toggle: { before: "Before FITVA", after: "With FITVA" },
   live: {
-    before: "Showing common problems before GymFit.",
-    after: "Showing how GymFit fixes each problem.",
+    before: "Showing common problems before FITVA.",
+    after: "Showing how FITVA fixes each problem.",
   },
   painLabel: "Pain",
   fixLabel: "Fix",
@@ -290,7 +290,7 @@ export const problemSolutionContent: SectionCopy & {
       },
       fix: {
         title: "One organised hub",
-        text: "Plans, dues and schedules live in GymFit — not lost in a chat scroll.",
+        text: "Plans, dues and schedules live in FITVA — not lost in a chat scroll.",
       },
     },
   ],
@@ -561,7 +561,7 @@ export const showcaseContent: SectionCopy & { figureCaption: string; hotspots: H
   title: "See it before you sign up",
   highlight: "before you sign up",
   description: "Hover or tap the numbered markers to explore the dashboard.",
-  figureCaption: "Interactive preview of the GymFit dashboard with sample data.",
+  figureCaption: "Interactive preview of the FITVA dashboard with sample data.",
   hotspots: [
     {
       id: "kpis",
@@ -750,7 +750,7 @@ export const testimonialsContent: SectionCopy & {
   items: [
     {
       quote:
-        "Testimonial coming soon. This space is reserved for a real story from a GymFit gym owner.",
+        "Testimonial coming soon. This space is reserved for a real story from a FITVA gym owner.",
       name: "Gym owner name",
       role: "Owner",
       gym: "Gym name, City",
@@ -758,7 +758,7 @@ export const testimonialsContent: SectionCopy & {
     },
     {
       quote:
-        "Testimonial coming soon. This space is reserved for a trainer who coaches with GymFit every day.",
+        "Testimonial coming soon. This space is reserved for a trainer who coaches with FITVA every day.",
       name: "Trainer name",
       role: "Head Coach",
       gym: "Gym name, City",
@@ -766,7 +766,7 @@ export const testimonialsContent: SectionCopy & {
     },
     {
       quote:
-        "Testimonial coming soon. This space is reserved for a member tracking their progress with GymFit.",
+        "Testimonial coming soon. This space is reserved for a member tracking their progress with FITVA.",
       name: "Member name",
       role: "Member",
       gym: "Gym name, City",
@@ -786,7 +786,7 @@ export const faqContent: SectionCopy & { cta: NavLink; items: FaqItem[] } = {
   eyebrow: "FAQ",
   title: "Questions, answered",
   highlight: "answered",
-  description: "Still unsure? Book a demo and we’ll walk you through GymFit with your own setup.",
+  description: "Still unsure? Book a demo and we’ll walk you through FITVA with your own setup.",
   cta: { label: "Book a demo", href: "/#demo" },
   items: [
     {
@@ -797,7 +797,7 @@ export const faqContent: SectionCopy & { cta: NavLink; items: FaqItem[] } = {
     {
       question: "How does the free trial work?",
       answer:
-        "You get full access to every feature for 14 days. No credit card is required to start — pick a plan only if GymFit works for your gym.",
+        "You get full access to every feature for 14 days. No credit card is required to start — pick a plan only if FITVA works for your gym.",
     },
     {
       question: "Can I cancel anytime?",
@@ -815,9 +815,9 @@ export const faqContent: SectionCopy & { cta: NavLink; items: FaqItem[] } = {
         "Yes. Upload a spreadsheet (CSV or Excel) of your members and map the columns in a few clicks. On the Elite plan, our team helps you with the import.",
     },
     {
-      question: "Does GymFit work on mobile?",
+      question: "Does FITVA work on mobile?",
       answer:
-        "Yes. GymFit is fully responsive and works in any modern browser on phones, tablets and desktops — for owners, trainers and members alike.",
+        "Yes. FITVA is fully responsive and works in any modern browser on phones, tablets and desktops — for owners, trainers and members alike.",
     },
     {
       question: "Which payment methods do you accept?",
@@ -861,7 +861,7 @@ export const finalCtaContent: {
 } = {
   eyebrow: "Ready when you are",
   headline: { lead: "Your gym.", punch: "Levelled up." },
-  text: "Start your 14-day free trial today — or tell us about your gym and we’ll walk you through GymFit.",
+  text: "Start your 14-day free trial today — or tell us about your gym and we’ll walk you through FITVA.",
   trialCta: { label: "Start Free Trial", href: "/signup" },
   trust: ["No credit card required", "Cancel anytime"],
   form: {
@@ -961,6 +961,6 @@ export const footerContent: {
     { label: "Community (link coming soon)", href: "#", icon: MessageCircle },
     { label: "Email (link coming soon)", href: "#", icon: Mail },
   ],
-  copyright: "© {year} GymFit. All rights reserved.",
+  copyright: "© {year} FITVA. All rights reserved.",
   tagline: "Built for gyms in India — ready for the world.",
 };

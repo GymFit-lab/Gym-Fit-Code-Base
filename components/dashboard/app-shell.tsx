@@ -101,7 +101,7 @@ export function AppShell({
       <div className="min-w-0">
         <header className="sticky top-0 z-30 border-b border-border bg-bg/85 backdrop-blur-lg">
           <div className="flex h-16 items-center gap-3 px-4 md:px-8">
-            <Wordmark className="text-2xl lg:hidden" />
+            <Wordmark className="h-9 lg:hidden" />
             <div className="ml-auto flex items-center gap-1">
               <ThemeToggle />
               <SignOutButton authMode={authMode} variant="ghost" size="sm" className="lg:hidden" />

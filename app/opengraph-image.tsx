@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
 import { heroContent } from "@/content/landing";
@@ -11,8 +14,11 @@ export const contentType = "image/png";
 const BEATS = 4;
 
 /** Brand OG image, rendered at build time — no external images or fonts. */
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
   const { iron, chalk, lime, ember, muted } = siteConfig.colors;
+  // The white-text logo (for dark backgrounds), embedded as a data URL.
+  const logo = await readFile(join(process.cwd(), "public/brand/fitva-logo-dark.svg"));
+  const logoSrc = `data:image/svg+xml;base64,${logo.toString("base64")}`;
 
   return new ImageResponse(
     <div
@@ -28,18 +34,9 @@ export default function OpengraphImage() {
         color: chalk,
       }}
     >
-      <div
-        style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 44, fontWeight: 800 }}
-      >
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10.5" stroke={chalk} strokeWidth="2.5" />
-          <circle cx="12" cy="12" r="6" stroke={lime} strokeWidth="2.5" />
-          <circle cx="12" cy="12" r="2" fill={chalk} />
-        </svg>
-        <div style={{ display: "flex", letterSpacing: 2 }}>
-          {siteConfig.wordmark.lead}
-          <span style={{ color: lime }}>{siteConfig.wordmark.accent}</span>
-        </div>
+      <div style={{ display: "flex" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element -- next/og renders plain <img> */}
+        <img src={logoSrc} alt="" width={290} height={90} />
       </div>
 
       <div

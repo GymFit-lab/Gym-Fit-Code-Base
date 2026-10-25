@@ -12,7 +12,7 @@ export function Footer() {
       </h2>
       <div className="container-x grid gap-12 py-16 lg:grid-cols-[1.2fr_2fr]">
         <div>
-          <Wordmark className="text-4xl" />
+          <Wordmark withTagline className="h-24" />
           <p className="mt-4 max-w-sm text-muted">{content.pitch}</p>
           <ul aria-label={content.socialLabel} className="mt-6 flex gap-2">
             {content.socials.map(({ label, href, icon: Icon }) => (

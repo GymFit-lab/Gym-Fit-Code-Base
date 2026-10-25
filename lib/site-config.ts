@@ -3,14 +3,15 @@
  * Page copy lives in /content — this file is for metadata and infrastructure.
  */
 export const siteConfig = {
-  name: "GymFit",
-  wordmark: { lead: "GYM", accent: "FIT" },
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://gymfit.example.com").replace(/\/$/, ""),
-  title: "GymFit — Gym Management Software for Gym Owners",
+  name: "FITVA",
+  /** Brand tagline from the FITVA logo. */
+  tagline: "Fitness for a better you",
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://fitva.example.com").replace(/\/$/, ""),
+  title: "FITVA — Gym Management Software for Gym Owners",
   shortTitle: "Run your gym. Not spreadsheets.",
   description:
-    "GymFit is gym management software for gym owners. Manage clients, memberships & renewals, attendance, progress tracking, trainers, workout & diet plans, payment reminders and reports — in one place.",
-  ogAlt: "GymFit — Run your gym. Not spreadsheets.",
+    "FITVA is gym management software for gym owners. Manage clients, memberships & renewals, attendance, progress tracking, trainers, workout & diet plans, payment reminders and reports — in one place.",
+  ogAlt: "FITVA — Fitness for a better you. Gym management software for gym owners.",
   locale: "en_IN",
   keywords: [
     "gym management software",
@@ -22,9 +23,9 @@ export const siteConfig = {
     "personal trainer software",
   ],
   // PLACEHOLDER: replace with the real support address before launch.
-  contactEmail: "hello@gymfit.example.com",
+  contactEmail: "hello@fitva.example.com",
   /** Text engraved around the decorative weight-plate graphic. */
-  plateLabel: "GYMFIT · 20 KG · IRON & PULSE · 20 KG · ",
+  plateLabel: "FITVA · 20 KG · FITNESS FOR A BETTER YOU · 20 KG · ",
   colors: {
     iron: "#0B0B0D",
     chalk: "#F6F5F2",

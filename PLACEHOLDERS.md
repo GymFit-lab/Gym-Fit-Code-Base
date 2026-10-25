@@ -16,10 +16,10 @@ the exact lines; this list is the human-readable checklist.
 
 ## Site config — `lib/site-config.ts`
 
-| What                                          | Notes                                                                                     |
-| --------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `contactEmail` (`hello@gymfit.example.com`)   | Real support address. Also used in JSON-LD.                                               |
-| `url` fallback (`https://gymfit.example.com`) | Set `NEXT_PUBLIC_SITE_URL` in Vercel; it feeds metadata, OG, sitemap, robots and JSON-LD. |
+| What                                         | Notes                                                                                     |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `contactEmail` (`hello@fitva.example.com`)   | Real support address. Also used in JSON-LD.                                               |
+| `url` fallback (`https://fitva.example.com`) | Set `NEXT_PUBLIC_SITE_URL` in Vercel; it feeds metadata, OG, sitemap, robots and JSON-LD. |
 
 ## Placeholder routes — `content/pages.ts`
 

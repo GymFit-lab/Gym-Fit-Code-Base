@@ -301,6 +301,6 @@ export const gymContent = {
       today: "Ends today",
     },
     csvHeaders: ["Date", "Client", "Method", "Status", "Amount (INR)", "Note"],
-    csvFile: "gymfit-payments-{date}.csv",
+    csvFile: "fitva-payments-{date}.csv",
   },
 };

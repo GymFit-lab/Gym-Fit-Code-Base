@@ -34,10 +34,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: siteConfig.colors.iron },
-    { media: "(prefers-color-scheme: light)", color: siteConfig.colors.chalk },
-  ],
+  // The site opens in light mode regardless of the OS setting (components/theme-provider.tsx).
+  themeColor: siteConfig.colors.chalk,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

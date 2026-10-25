@@ -15,7 +15,7 @@ export const DEMO_CREDENTIALS = { username: "Admin", password: "1234" } as const
 export const DEMO_USER = {
   id: "demo-admin",
   name: "Admin",
-  email: "admin@gymfit.demo",
+  email: "admin@fitva.demo",
   role: "owner",
 } as const;
 

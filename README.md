@@ -1,6 +1,6 @@
-# GymFit — marketing site
+# FITVA — marketing site
 
-Landing page and pre-launch app shell for **GymFit**, gym management software for gym owners
+Landing page and pre-launch app shell for **FITVA**, gym management software for gym owners
 (clients, memberships & renewals, attendance, progress, trainers, plans, reminders, reports).
 
 Next.js 15 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS v4 · shadcn/ui (Radix) ·

@@ -29,7 +29,7 @@ export const authContent = {
 
   /** Left-hand brand panel on desktop. */
   panel: {
-    eyebrow: "GymFit",
+    eyebrow: "FITVA",
     headline: { lead: "Run your gym.", punch: "Not spreadsheets." },
     points: [
       "Clients, memberships and renewals in one place",
@@ -40,20 +40,20 @@ export const authContent = {
 
   login: {
     metaTitle: "Log in",
-    metaDescription: "Log in to your GymFit account.",
+    metaDescription: "Log in to your FITVA account.",
     eyebrow: "Welcome back",
     title: "Log in",
     description: "Pick up where you left off.",
     submit: "Log in",
     submitting: "Logging in…",
-    switchPrompt: "New to GymFit?",
+    switchPrompt: "New to FITVA?",
     switchLink: { label: "Start your free trial", href: "/signup" },
     rememberMe: "Keep me logged in",
   } satisfies AuthPageCopy & { rememberMe: string },
 
   signup: {
     metaTitle: "Start your free trial",
-    metaDescription: "Create your GymFit account and start a 14-day free trial.",
+    metaDescription: "Create your FITVA account and start a 14-day free trial.",
     eyebrow: "14-day free trial",
     title: "Create your account",
     description: "No credit card required. Set up your gym in minutes.",
@@ -113,7 +113,7 @@ export const authContent = {
     },
     signupDisabled: {
       title: "Sign-up opens soon",
-      body: "New accounts can be created once the GymFit backend is live. For now, use the demo login.",
+      body: "New accounts can be created once the FITVA backend is live. For now, use the demo login.",
       cta: { label: "Go to login", href: "/login" },
     },
   },
