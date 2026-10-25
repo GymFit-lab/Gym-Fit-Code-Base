@@ -8,9 +8,3 @@ export function formatMoney(amount: number, currency: CurrencyCode = pricingCont
     maximumFractionDigits: 0,
   }).format(amount);
 }
-
-/** Percentage saved by paying yearly instead of 12 × monthly. */
-export function yearlySavingPercent(price: { monthly: number; yearly: number }) {
-  if (price.monthly <= 0) return 0;
-  return Math.max(0, Math.round((1 - price.yearly / (price.monthly * 12)) * 100));
-}

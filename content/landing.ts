@@ -600,8 +600,8 @@ export const showcaseContent: SectionCopy & { figureCaption: string; hotspots: H
 /*                                   Pricing                                  */
 /* -------------------------------------------------------------------------- */
 
-export type CurrencyCode = "INR" | "USD";
-export type Billing = "monthly" | "yearly";
+/** Only INR for now. To offer another currency, add its code here plus a price for it in every plan. */
+export type CurrencyCode = "INR";
 /** `null` = unlimited. */
 export type PlanLimits = {
   clients: number | null;
@@ -613,8 +613,8 @@ export type Plan = {
   id: "starter" | "pro" | "elite";
   name: string;
   tagline: string;
-  /** `monthly` = price per month billed monthly. `yearly` = total price billed once per year. */
-  prices: Record<CurrencyCode, { monthly: number; yearly: number }>;
+  /** Price per month, billed monthly (monthly billing only — there are no yearly plans). */
+  prices: Record<CurrencyCode, { monthly: number }>;
   limits: PlanLimits;
   features: string[];
   cta: NavLink;
@@ -625,15 +625,8 @@ export type PricingContent = SectionCopy & {
   /** 👉 Switch the displayed currency here. Every plan must define a price for it. */
   currency: CurrencyCode;
   currencyLocales: Record<CurrencyCode, string>;
-  billingToggleLabel: string;
-  billingLabels: Record<Billing, string>;
-  /** `{percent}` is replaced automatically. */
-  saveUpTo: string;
-  savePercent: string;
   perMonth: string;
   billedMonthly: string;
-  /** `{amount}` is replaced automatically. */
-  billedYearly: string;
   limitLabels: Record<keyof PlanLimits, string>;
   unlimitedSymbol: string;
   unlimitedLabel: string;
@@ -649,14 +642,9 @@ export const pricingContent: PricingContent = {
   highlight: "Serious gains.",
   description: "Every plan starts with a 14-day free trial. Upgrade, downgrade or cancel anytime.",
   currency: "INR",
-  currencyLocales: { INR: "en-IN", USD: "en-US" },
-  billingToggleLabel: "Billing period",
-  billingLabels: { monthly: "Monthly", yearly: "Yearly" },
-  saveUpTo: "Save up to {percent}%",
-  savePercent: "you save {percent}%",
+  currencyLocales: { INR: "en-IN" },
   perMonth: "/ month",
   billedMonthly: "Billed monthly",
-  billedYearly: "Billed {amount} yearly",
   limitLabels: { clients: "Clients", trainers: "Trainers", branches: "Branches" },
   unlimitedSymbol: "∞",
   unlimitedLabel: "Unlimited",
@@ -667,7 +655,7 @@ export const pricingContent: PricingContent = {
       id: "starter",
       name: "Starter",
       tagline: "For new and single-trainer gyms.",
-      prices: { INR: { monthly: 999, yearly: 9590 }, USD: { monthly: 19, yearly: 182 } },
+      prices: { INR: { monthly: 4999 } },
       limits: { clients: 150, trainers: 2, branches: 1 },
       features: [
         "Client profiles & memberships",
@@ -682,7 +670,7 @@ export const pricingContent: PricingContent = {
       id: "pro",
       name: "Pro",
       tagline: "For growing gyms with a coaching team.",
-      prices: { INR: { monthly: 2499, yearly: 23990 }, USD: { monthly: 49, yearly: 470 } },
+      prices: { INR: { monthly: 6999 } },
       limits: { clients: 600, trainers: 10, branches: 2 },
       features: [
         "Everything in Starter",
@@ -698,7 +686,7 @@ export const pricingContent: PricingContent = {
       id: "elite",
       name: "Elite",
       tagline: "For multi-branch gyms and chains.",
-      prices: { INR: { monthly: 4999, yearly: 47990 }, USD: { monthly: 99, yearly: 950 } },
+      prices: { INR: { monthly: 14999 } },
       limits: { clients: null, trainers: null, branches: 5 },
       features: [
         "Everything in Pro",
@@ -802,7 +790,7 @@ export const faqContent: SectionCopy & { cta: NavLink; items: FaqItem[] } = {
     {
       question: "Can I cancel anytime?",
       answer:
-        "Yes. There is no lock-in. You can cancel from your account settings at any time and export your data before you go. See our Refund Policy for details on yearly plans.",
+        "Yes. There is no lock-in. You can cancel from your account settings at any time and export your data before you go.",
     },
     {
       question: "Do you support multiple branches?",

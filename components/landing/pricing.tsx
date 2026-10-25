@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { Check } from "lucide-react";
 
@@ -8,14 +5,13 @@ import { ChalkGrain } from "@/components/graphics/chalk-grain";
 import { PlateRings } from "@/components/graphics/plate-rings";
 import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
-import { pricingContent as content, type Billing, type PlanLimits } from "@/content/landing";
-import { formatMoney, yearlySavingPercent } from "@/lib/format";
-import { cn, fill, revealDelay } from "@/lib/utils";
+import { pricingContent as content, type PlanLimits } from "@/content/landing";
+import { formatMoney } from "@/lib/format";
+import { cn, revealDelay } from "@/lib/utils";
 
+/** Monthly prices only (there is no yearly billing). */
 export function Pricing() {
-  const [billing, setBilling] = useState<Billing>("yearly");
   const currency = content.currency;
-  const maxSaving = Math.max(...content.plans.map((p) => yearlySavingPercent(p.prices[currency])));
 
   return (
     <section
@@ -29,40 +25,9 @@ export function Pricing() {
       <div className="relative container-x">
         <SectionHeading copy={content} id="pricing-title" />
 
-        <div className="mt-10 flex flex-col items-center gap-3">
-          <div
-            role="radiogroup"
-            aria-label={content.billingToggleLabel}
-            className="inline-flex rounded-full border border-border-strong bg-bg p-1"
-          >
-            {(Object.keys(content.billingLabels) as Billing[]).map((value) => (
-              <button
-                key={value}
-                type="button"
-                role="radio"
-                aria-checked={billing === value}
-                onClick={() => setBilling(value)}
-                className={cn(
-                  "min-h-11 rounded-full px-6 text-sm font-semibold transition-colors",
-                  billing === value ? "bg-primary text-iron" : "text-muted hover:text-fg",
-                )}
-              >
-                {content.billingLabels[value]}
-              </button>
-            ))}
-          </div>
-          {maxSaving > 0 && (
-            <p className="text-sm text-primary-ink">
-              {fill(content.saveUpTo, { percent: maxSaving })}
-            </p>
-          )}
-        </div>
-
         <ul className="mt-12 grid items-stretch gap-5 lg:grid-cols-3">
           {content.plans.map((plan, i) => {
-            const price = plan.prices[currency];
-            const perMonth = billing === "monthly" ? price.monthly : Math.round(price.yearly / 12);
-            const saving = yearlySavingPercent(price);
+            const perMonth = plan.prices[currency].monthly;
             return (
               <li
                 key={plan.id}
@@ -89,17 +54,7 @@ export function Pricing() {
                   </span>
                   <span className="text-muted">{content.perMonth}</span>
                 </p>
-                <p className="mt-2 text-sm text-muted">
-                  {billing === "monthly"
-                    ? content.billedMonthly
-                    : fill(content.billedYearly, { amount: formatMoney(price.yearly, currency) })}
-                  {billing === "yearly" && saving > 0 && (
-                    <span className="text-primary-ink">
-                      {" "}
-                      · {fill(content.savePercent, { percent: saving })}
-                    </span>
-                  )}
-                </p>
+                <p className="mt-2 text-sm text-muted">{content.billedMonthly}</p>
 
                 <dl className="mt-6 grid grid-cols-3 gap-2 rounded-2xl border border-border p-3 text-center">
                   {(Object.keys(content.limitLabels) as (keyof PlanLimits)[]).map((key) => (

@@ -58,12 +58,12 @@ Components only render; **every string, price and list lives in `content/landing
 - **Copy / features / FAQ / testimonials / stats:** edit the matching export
   (`heroContent`, `featuresContent`, `faqContent`, `testimonialsContent`, `statsContent`, …).
   In section headings, `highlight` must be a substring of `title` (it renders in lime).
-- **Prices:** `pricingContent.plans[].prices` — `monthly` is the per-month price,
-  `yearly` is the total billed once a year. Yearly savings % are calculated automatically.
+- **Prices:** `pricingContent.plans[].prices.INR.monthly` — the per-month price. Billing is
+  monthly only (no yearly plans).
 - **Plan limits:** `pricingContent.plans[].limits` (`clients`, `trainers`, `branches`;
   `null` = unlimited).
-- **Currency:** set `pricingContent.currency` (`"INR"` or `"USD"`). To add one, extend
-  `CurrencyCode`, add a locale to `currencyLocales` and a price for every plan.
+- **Currency:** INR only. To add one, extend `CurrencyCode`, add a locale to
+  `currencyLocales` and a price for every plan.
 - **Highlighted plan:** `highlighted: true` on one plan.
 - **Placeholders:** anything with `placeholder: true` shows a visible badge/footnote.
   See [`PLACEHOLDERS.md`](PLACEHOLDERS.md) for the full pre-launch checklist.
