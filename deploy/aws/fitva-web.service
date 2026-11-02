@@ -1,0 +1,19 @@
+[Unit]
+Description=FITVA website (Next.js)
+After=network.target fitva-api.service
+
+[Service]
+User=fitva
+Group=fitva
+WorkingDirectory=/opt/fitva/web/current
+ExecStart=/usr/bin/node /opt/fitva/web/current/node_modules/next/dist/bin/next start -H 127.0.0.1 -p 3000
+EnvironmentFile=/etc/fitva/web.env
+Restart=always
+RestartSec=5
+SyslogIdentifier=fitva-web
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
