@@ -25,12 +25,29 @@ $target = "$User@$Server"
 $sshOpts = @("-i", $Key, "-o", "StrictHostKeyChecking=accept-new", "-o", "ServerAliveInterval=30")
 
 function Remote([string]$command) {
-    & ssh @sshOpts $target $command
-    if ($LASTEXITCODE -ne 0) { throw "Remote command failed (exit $LASTEXITCODE): $command" }
+    # PowerShell 5.1 turns any remote stderr line into a terminating error while
+    # $ErrorActionPreference is "Stop" (the setup scripts write progress to stderr), so merge
+    # stderr into stdout on the server and judge the call only by its exit code.
+    $prev = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        & ssh @sshOpts $target "$command 2>&1"
+        $code = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $prev
+    }
+    if ($code -ne 0) { throw "Remote command failed (exit $code): $command" }
 }
 function Upload([string[]]$files, [string]$dest) {
-    & scp @sshOpts @files "${target}:$dest"
-    if ($LASTEXITCODE -ne 0) { throw "Upload failed" }
+    $prev = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        & scp @sshOpts @files "${target}:$dest"
+        $code = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $prev
+    }
+    if ($code -ne 0) { throw "Upload failed (exit $code)" }
 }
 
 if ($Setup) {

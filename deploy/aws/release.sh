@@ -59,7 +59,7 @@ systemctl restart fitva-web
 
 wait_for() { # url, label
   for _ in $(seq 1 60); do
-    if curl -fsS -o /dev/null "$1"; then echo "$2: OK"; return 0; fi
+    if curl -fsS -o /dev/null "$1" 2>/dev/null; then echo "$2: OK"; return 0; fi
     sleep 2
   done
   echo "$2: FAILED"; return 1
