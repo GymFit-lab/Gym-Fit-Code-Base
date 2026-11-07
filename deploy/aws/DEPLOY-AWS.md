@@ -12,7 +12,7 @@ https://api.fitva.co.in  ─┘   (Let's Encrypt)   └─► .NET API (127.0.0.
 
 | Item     | Choice                                                                                    | Cost (approx.) |
 | -------- | ----------------------------------------------------------------------------------------- | -------------- |
-| Server   | EC2 **t3.small** (2 vCPU, 2 GB RAM), **Ubuntu 24.04 LTS**, region **Mumbai (ap-south-1)** | ~$16/month     |
+| Server   | EC2 **t3.small** (2 vCPU, 2 GB RAM), **Ubuntu 26.04 LTS**, region **Mumbai (ap-south-1)** | ~$16/month     |
 | Disk     | 30 GB gp3                                                                                 | ~$3/month      |
 | Fixed IP | Elastic IP (public IPv4)                                                                  | ~$4/month      |
 | HTTPS    | Let's Encrypt                                                                             | free           |
@@ -37,7 +37,7 @@ Sign in at <https://console.aws.amazon.com>. In the top-right region menu, choos
 
 1. Go to **EC2** → **Instances** → **Launch instances**.
 2. Name: `fitva-prod`.
-3. Image: **Ubuntu Server 24.04 LTS (HVM), SSD Volume Type**, architecture **64-bit (x86)**.
+3. Image: **Ubuntu Server 26.04 LTS (HVM), SSD Volume Type**, architecture **64-bit (x86)**.
 4. Instance type: **t3.small**.
 5. Key pair: **fitva**.
 6. **Network settings** → **Edit**:
@@ -100,7 +100,7 @@ From the project folder (`D:\GymFit_CL`):
 
 This installs:
 
-- Nginx, PostgreSQL 16, the .NET 10 runtime, Node.js 24 and pnpm 10.
+- Nginx, PostgreSQL 18, the .NET 10 runtime, Node.js 24 and pnpm 10.
 - A 2 GB swap file.
 - The `fitva` system user and the two services.
 - Firewall rules: SSH, HTTP and HTTPS only. PostgreSQL listens on localhost only.

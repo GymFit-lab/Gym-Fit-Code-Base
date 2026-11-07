@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# One-time setup of a fresh Ubuntu 24.04 EC2 server for FITVA (website + .NET API + PostgreSQL).
+# One-time setup of a fresh Ubuntu 26.04 EC2 server for FITVA (website + .NET API + PostgreSQL).
+# (On 26.04 the default PostgreSQL is 18 and its contrib modules ship inside postgresql-18.)
 # Run once, as root:   sudo bash setup-server.sh
 # Safe to run again: it skips what already exists and never overwrites secrets.
 set -euo pipefail
@@ -17,7 +18,8 @@ log() { echo -e "\n== $*"; }
 log "System packages"
 apt-get update -y
 apt-get upgrade -y
-apt-get install -y nginx postgresql postgresql-contrib certbot python3-certbot-nginx \
+# postgresql-contrib is not a package on 26.04: postgresql-18 already ships pgcrypto + citext.
+apt-get install -y nginx postgresql certbot python3-certbot-nginx \
   curl ca-certificates gnupg ufw openssl unattended-upgrades
 
 log "Swap (2 GB) so the website build fits on a 2 GB server"
@@ -80,6 +82,8 @@ NEXT_TELEMETRY_DISABLED=1
 PORT=3000
 HOSTNAME=127.0.0.1
 NEXT_PUBLIC_SITE_URL=https://${DOMAIN}
+# Not used in fitva mode, but lib/db.ts builds PrismaPg at import time during `next build`.
+DATABASE_URL=postgresql://fitva_app:${DB_APP_PASSWORD}@127.0.0.1:5432/fitva_db
 AUTH_MODE=fitva
 FITVA_API_URL=http://127.0.0.1:5000
 BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}

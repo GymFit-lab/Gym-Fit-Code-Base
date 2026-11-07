@@ -44,6 +44,7 @@ sudo -u fitva -H bash -c "
   pnpm config set store-dir /opt/fitva/.pnpm-store >/dev/null
   pnpm install --frozen-lockfile
   export NODE_ENV=production
+  export NODE_OPTIONS=\"--max-old-space-size=1536\${NODE_OPTIONS:+ \$NODE_OPTIONS}\"
   pnpm build
 "
 

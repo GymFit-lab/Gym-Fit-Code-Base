@@ -38,8 +38,8 @@ if ($Setup) {
     Remote "rm -rf /tmp/fitva-setup && mkdir -p /tmp/fitva-setup"
     Upload (Get-ChildItem deploy\aws -File | Where-Object { $_.Extension -in ".sh", ".service", ".conf" } | ForEach-Object FullName) "/tmp/fitva-setup/"
     Write-Host "== Running setup-server.sh (takes 5-10 minutes)"
-    # Strip any Windows line endings from a Windows checkout before bash reads the files.
-    Remote "sed -i 's/\r$//' /tmp/fitva-setup/* && sudo DOMAIN=$Domain bash /tmp/fitva-setup/setup-server.sh"
+    # deploy/aws/.gitattributes keeps these files LF, so no line-ending fix-up is needed here.
+    Remote "sudo DOMAIN=$Domain bash /tmp/fitva-setup/setup-server.sh"
     Write-Host "`nServer is set up. Next: deploy the first release (same command without -Setup)."
     exit 0
 }
