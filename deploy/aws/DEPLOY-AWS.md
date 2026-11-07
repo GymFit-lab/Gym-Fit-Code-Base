@@ -148,6 +148,22 @@ sudo bash /opt/fitva/web/current/deploy/aws/create-first-gym.sh
 It asks for the gym name, the branch, and the owner's name, email and password. Then log in at
 **https://fitva.co.in/login**. The owner adds staff logins from there (or with the API's `/staff`).
 
+### Optional: demo data (for sales demos)
+
+To fill a new gym with sample clients, plans, memberships, payments and check-ins (re-runnable, and
+it only touches the demo rows it creates):
+
+```bash
+ssh -i C:\keys\fitva.pem ubuntu@<ELASTIC_IP>
+sudo -i
+set -a; . /etc/fitva/secrets.env; set +a
+PGPASSWORD="$DB_OWNER_PASSWORD" psql -h 127.0.0.1 -U fitva_owner -d fitva_db \
+  -v ON_ERROR_STOP=1 -v owner_email='owner@example.in' \
+  -f /opt/fitva/web/current/database/deploy/05_demo_data.sql
+```
+
+Use the owner login's email. It creates no extra logins — the sample trainers are records only.
+
 ## 8. Check it
 
 - **https://fitva.co.in**: the home page with the FITVA logo, padlock in the address bar.
