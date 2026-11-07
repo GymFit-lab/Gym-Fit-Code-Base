@@ -82,7 +82,7 @@ NEXT_TELEMETRY_DISABLED=1
 PORT=3000
 HOSTNAME=127.0.0.1
 NEXT_PUBLIC_SITE_URL=https://${DOMAIN}
-# Not used in fitva mode, but lib/db.ts builds PrismaPg at import time during `next build`.
+# Not used in fitva mode, but lib/db.ts builds PrismaPg at import time during the Next build.
 DATABASE_URL=postgresql://fitva_app:${DB_APP_PASSWORD}@127.0.0.1:5432/fitva_db
 AUTH_MODE=fitva
 FITVA_API_URL=http://127.0.0.1:5000
