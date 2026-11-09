@@ -46,7 +46,7 @@ components/
   graphics/           PlateRings, PlateMark, EcgLine, PulseDivider, ChalkGrain, DashboardMockup, PlateLoader
   ui/                 shadcn/ui primitives
 content/
-  landing.ts          ALL landing-page copy, pricing, plan limits, FAQ, testimonials, stats
+  landing.ts          ALL landing-page copy, pricing, plan limits, FAQ, stats
   pages.ts            copy for placeholder routes (privacy, terms, …)
 lib/                  site-config, utils, formatters, JSON-LD, Zod schemas
 ```
@@ -55,8 +55,8 @@ lib/                  site-config, utils, formatters, JSON-LD, Zod schemas
 
 Components only render; **every string, price and list lives in `content/landing.ts`**.
 
-- **Copy / features / FAQ / testimonials / stats:** edit the matching export
-  (`heroContent`, `featuresContent`, `faqContent`, `testimonialsContent`, `statsContent`, …).
+- **Copy / features / FAQ / stats:** edit the matching export
+  (`heroContent`, `featuresContent`, `faqContent`, `statsContent`, …).
   In section headings, `highlight` must be a substring of `title` (it renders in lime).
 - **Prices:** `pricingContent.plans[].prices.INR.monthly` — the per-month price. Billing is
   monthly only (no yearly plans).

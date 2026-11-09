@@ -29,7 +29,7 @@ Database: `pnpm db:migrate` (prisma migrate dev), `pnpm db:push`, `pnpm db:studi
 
 ## Architecture
 
-- **Content is data, components only render.** `content/landing.ts` is the single source of truth for every user-facing string, price, plan limit, FAQ and testimonial on the landing page (with exported types per section, e.g. `SectionCopy`, `Plan`, `Feature`). `content/pages.ts` holds copy for placeholder routes (legal, company); each has `indexable: false` until real content replaces it. Don't hard-code copy in components — add it to these files.
+- **Content is data, components only render.** `content/landing.ts` is the single source of truth for every user-facing string, price, plan limit and FAQ on the landing page (with exported types per section, e.g. `SectionCopy`, `Plan`, `Feature`). `content/pages.ts` holds copy for placeholder routes (legal, company); each has `indexable: false` until real content replaces it. Don't hard-code copy in components — add it to these files.
   - `SectionCopy.highlight` must be a substring of `title` (rendered in brand colour).
   - Templates use `{key}` tokens filled via `fill()` in `lib/utils.ts`.
   - Anything marked `placeholder: true` or `// PLACEHOLDER` must be replaced with real data before launch.

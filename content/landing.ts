@@ -1,7 +1,7 @@
 /**
  * FITVA landing page content — the single source of truth for the marketing page.
  *
- * Every user-facing string, list, price, plan limit, FAQ and testimonial lives here.
+ * Every user-facing string, list, price, plan limit and FAQ lives here.
  * Components only render what this file provides.
  *
  * ⚠️ Anything marked `placeholder: true` or tagged `PLACEHOLDER` in a comment must be
@@ -697,68 +697,6 @@ export const pricingContent: PricingContent = {
       ],
       cta: { label: "Start free trial", href: "/signup?plan=elite" },
       highlighted: false,
-    },
-  ],
-};
-
-/* -------------------------------------------------------------------------- */
-/*                                Testimonials                                */
-/* -------------------------------------------------------------------------- */
-
-export type Testimonial = {
-  quote: string;
-  name: string;
-  role: string;
-  gym: string;
-  /** true = placeholder slot, shows a visible "Placeholder" badge. */
-  placeholder: boolean;
-};
-
-export const testimonialsContent: SectionCopy & {
-  carouselLabel: string;
-  slideLabel: string;
-  prevLabel: string;
-  nextLabel: string;
-  goToLabel: string;
-  placeholderBadge: string;
-  items: Testimonial[];
-} = {
-  eyebrow: "Testimonials",
-  title: "Words from the gym floor",
-  highlight: "gym floor",
-  description:
-    "We’re onboarding our first gyms. Real stories from real owners, trainers and members will appear here.",
-  carouselLabel: "Testimonials",
-  slideLabel: "{n} of {total}",
-  prevLabel: "Previous testimonial",
-  nextLabel: "Next testimonial",
-  goToLabel: "Go to testimonial {n}",
-  placeholderBadge: "Placeholder",
-  // PLACEHOLDER: replace with real, consented testimonials (set placeholder: false).
-  items: [
-    {
-      quote:
-        "Testimonial coming soon. This space is reserved for a real story from a FITVA gym owner.",
-      name: "Gym owner name",
-      role: "Owner",
-      gym: "Gym name, City",
-      placeholder: true,
-    },
-    {
-      quote:
-        "Testimonial coming soon. This space is reserved for a trainer who coaches with FITVA every day.",
-      name: "Trainer name",
-      role: "Head Coach",
-      gym: "Gym name, City",
-      placeholder: true,
-    },
-    {
-      quote:
-        "Testimonial coming soon. This space is reserved for a member tracking their progress with FITVA.",
-      name: "Member name",
-      role: "Member",
-      gym: "Gym name, City",
-      placeholder: true,
     },
   ],
 };

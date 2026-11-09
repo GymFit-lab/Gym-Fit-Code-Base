@@ -10,7 +10,6 @@ import { Roles } from "@/components/landing/roles";
 import { Showcase } from "@/components/landing/showcase";
 import { Stats } from "@/components/landing/stats";
 import { StickyCta } from "@/components/landing/sticky-cta";
-import { Testimonials } from "@/components/landing/testimonials";
 import { buildJsonLd } from "@/lib/json-ld";
 
 export default function HomePage() {
@@ -29,7 +28,6 @@ export default function HomePage() {
       <Showcase />
       <PulseDivider />
       <Pricing />
-      <Testimonials />
       <PulseDivider />
       <Faq />
       <FinalCta />
